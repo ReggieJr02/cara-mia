@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <title>Cara Mia</title>
 
@@ -26,6 +26,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
+
+touch-action:none;
+overscroll-behavior:none;
 
 user-select:none;
 -webkit-user-select:none;
@@ -222,8 +225,8 @@ let rose=document.createElement("div")
 rose.className="rose"
 rose.innerHTML="🌹"
 
-rose.style.left=e.clientX+"px"
-rose.style.top=e.clientY+"px"
+rose.style.left=(e.clientX-10)+"px"
+rose.style.top=(e.clientY-10)+"px"
 
 document.body.appendChild(rose)
 
@@ -250,8 +253,16 @@ setTimeout(()=>{b.remove()},8000)
 
 setInterval(bat,4000)
 
+/* bloquear scroll táctil */
+
+document.addEventListener("touchmove",function(e){
+e.preventDefault();
+},{passive:false})
+
 </script>
 
 </body>
 </html>
+
+
 
