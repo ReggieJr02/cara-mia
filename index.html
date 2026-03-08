@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<title>Para mi Cara Mia</title>
+<title>Cara Mia</title>
 
 <style>
 
@@ -16,8 +16,8 @@ padding:0;
 }
 
 html,body{
-width:100%;
 height:100%;
+width:100%;
 overflow:hidden;
 background:#000;
 color:#fff;
@@ -47,7 +47,7 @@ z-index:-1;
 .moon{
 position:fixed;
 top:30px;
-right:25px;
+right:30px;
 font-size:40px;
 opacity:.8;
 }
@@ -57,7 +57,7 @@ opacity:.8;
 .container{
 width:90%;
 max-width:420px;
-padding:25px;
+padding:30px;
 border:2px solid white;
 border-radius:12px;
 box-shadow:0 0 25px rgba(255,255,255,.15);
@@ -67,7 +67,7 @@ box-shadow:0 0 25px rgba(255,255,255,.15);
 
 h1{
 font-size:26px;
-margin-bottom:5px;
+margin-bottom:10px;
 }
 
 .subtitle{
@@ -76,11 +76,11 @@ opacity:.7;
 margin-bottom:20px;
 }
 
-/* frases */
+/* frase */
 
 #frase{
-font-size:18px;
-min-height:70px;
+font-size:20px;
+min-height:80px;
 line-height:1.4;
 }
 
@@ -90,7 +90,7 @@ line-height:1.4;
 display:inline-block;
 width:2px;
 background:white;
-margin-left:3px;
+margin-left:4px;
 animation:blink 1s infinite;
 }
 
@@ -99,53 +99,12 @@ animation:blink 1s infinite;
 25%,75%{opacity:0}
 }
 
-/* botón */
-
-button{
-margin-top:18px;
-padding:10px 20px;
-border:2px solid white;
-background:black;
-color:white;
-font-size:15px;
-cursor:pointer;
-}
-
-/* sobre */
-
-.envelope{
-margin-top:20px;
-font-size:50px;
-display:none;
-}
-
-/* carta */
-
-.carta{
-display:none;
-margin-top:15px;
-font-size:16px;
-line-height:1.5;
-}
+/* final */
 
 .final{
+margin-top:25px;
 font-size:22px;
-margin-top:15px;
-}
-
-/* mano */
-
-.hand{
-position:fixed;
-bottom:-80px;
-left:10px;
-font-size:55px;
-transition:1.5s;
-}
-
-.hand.walk{
-bottom:10px;
-left:calc(50% - 30px);
+opacity:.9;
 }
 
 /* rosas */
@@ -188,50 +147,15 @@ to{transform:translateX(110vw)}
 
 <div id="frase"></div><span class="cursor"></span>
 
-<button id="btnCarta">Aceptar la carta</button>
-
-<div class="envelope" id="sobre">💌</div>
-
-<div class="carta" id="carta">
-
-Mi querida...
-
-<br><br>
-
-El mundo puede ser extraño  
-y a veces oscuro...
-
-<br><br>
-
-pero cada momento contigo  
-lo convierte en algo fascinante.
-
-<br><br>
-
-Tu elegancia, tu fuerza y tu misterio  
-hacen que mi vida sea infinitamente mejor.
-
-<br><br>
-
-Si la eternidad existe...
-
-<br><br>
-
-quiero vivirla a tu lado.
-
 <div class="final">
 Cara Mia 🖤
 </div>
 
 </div>
 
-</div>
-
-<div class="hand" id="hand">🖐</div>
-
 <script>
 
-/* frases */
+/* frases de gomez */
 
 const frases=[
 
@@ -241,7 +165,9 @@ const frases=[
 
 '"Tu belleza es como la noche... misteriosa y eterna."',
 
-'"Cada momento contigo es un paraíso oscuro y hermoso."'
+'"Cada momento contigo es un paraíso oscuro y hermoso."',
+
+'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."'
 
 ]
 
@@ -262,7 +188,7 @@ setTimeout(escribir,35)
 
 }else{
 
-setTimeout(cambiarFrase,3000)
+setTimeout(cambiarFrase,3500)
 
 }
 
@@ -284,36 +210,13 @@ setTimeout(escribir,400)
 
 escribir()
 
-/* botón */
-
-document.getElementById("btnCarta").addEventListener("pointerdown",entregarCarta)
-
-function entregarCarta(){
-
-document.getElementById("hand").classList.add("walk")
-
-setTimeout(()=>{
-
-document.getElementById("sobre").style.display="block"
-
-},1000)
-
-setTimeout(()=>{
-
-document.getElementById("carta").style.display="block"
-
-},1800)
-
-}
-
-/* rosas */
+/* rosas al tocar */
 
 document.addEventListener("pointerdown",(e)=>{
 
 let rose=document.createElement("div")
 
 rose.className="rose"
-
 rose.innerHTML="🌹"
 
 rose.style.left=e.clientX+"px"
