@@ -3,22 +3,25 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <title>Para mi Cara Mia</title>
 
 <style>
 
-html,body{
+*{
+box-sizing:border-box;
 margin:0;
 padding:0;
+}
+
+html,body{
+width:100%;
+height:100%;
 overflow:hidden;
-overflow-x:hidden;
 background:#000;
 color:#fff;
 font-family:Georgia,serif;
-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -34,19 +37,18 @@ user-select:none;
 body::before{
 content:"";
 position:fixed;
-width:100%;
-height:100%;
+inset:0;
 background:radial-gradient(circle,#111,#000);
-z-index:-2;
+z-index:-1;
 }
 
 /* luna */
 
 .moon{
 position:fixed;
-top:40px;
-right:30px;
-font-size:45px;
+top:30px;
+right:25px;
+font-size:40px;
 opacity:.8;
 }
 
@@ -61,7 +63,7 @@ border-radius:12px;
 box-shadow:0 0 25px rgba(255,255,255,.15);
 }
 
-/* título */
+/* titulo */
 
 h1{
 font-size:26px;
@@ -107,12 +109,6 @@ background:black;
 color:white;
 font-size:15px;
 cursor:pointer;
-transition:.3s;
-}
-
-button:active{
-background:white;
-color:black;
 }
 
 /* sobre */
@@ -121,12 +117,6 @@ color:black;
 margin-top:20px;
 font-size:50px;
 display:none;
-animation:fade 1s;
-}
-
-@keyframes fade{
-from{opacity:0}
-to{opacity:1}
 }
 
 /* carta */
@@ -136,7 +126,6 @@ display:none;
 margin-top:15px;
 font-size:16px;
 line-height:1.5;
-animation:fade 2s;
 }
 
 .final{
@@ -144,38 +133,12 @@ font-size:22px;
 margin-top:15px;
 }
 
-/* rosas */
-
-.rose{
-position:absolute;
-font-size:22px;
-opacity:.35;
-animation:fall linear;
-}
-
-@keyframes fall{
-to{transform:translateY(110vh)}
-}
-
-/* murciélagos */
-
-.bat{
-position:absolute;
-font-size:18px;
-animation:fly linear;
-}
-
-@keyframes fly{
-from{transform:translateX(-10vw)}
-to{transform:translateX(110vw)}
-}
-
 /* mano */
 
 .hand{
 position:fixed;
-bottom:-90px;
-left:20px;
+bottom:-80px;
+left:10px;
 font-size:55px;
 transition:1.5s;
 }
@@ -183,6 +146,32 @@ transition:1.5s;
 .hand.walk{
 bottom:10px;
 left:calc(50% - 30px);
+}
+
+/* rosas */
+
+.rose{
+position:absolute;
+font-size:22px;
+animation:fall 4s linear;
+opacity:.35;
+}
+
+@keyframes fall{
+to{transform:translateY(120vh)}
+}
+
+/* murciélagos */
+
+.bat{
+position:absolute;
+font-size:18px;
+animation:fly 8s linear;
+}
+
+@keyframes fly{
+from{transform:translateX(-10vw)}
+to{transform:translateX(110vw)}
 }
 
 </style>
@@ -242,19 +231,17 @@ Cara Mia 🖤
 
 <script>
 
-/* FRASES GOMEZ */
+/* frases */
 
 const frases=[
 
 '"Cara Mia..."',
 
-'"Querida, cada momento contigo es un paraíso oscuro y hermoso."',
-
-'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."',
+'"Mi querida Morticia, mi amor por ti es eterno."',
 
 '"Tu belleza es como la noche... misteriosa y eterna."',
 
-'"Mi querida Morticia, mi amor por ti es eterno."'
+'"Cada momento contigo es un paraíso oscuro y hermoso."'
 
 ]
 
@@ -297,14 +284,9 @@ setTimeout(escribir,400)
 
 escribir()
 
-/* botón móvil */
+/* botón */
 
-const btn=document.getElementById("btnCarta")
-
-btn.addEventListener("click",entregarCarta)
-btn.addEventListener("touchstart",entregarCarta)
-
-/* entregar carta */
+document.getElementById("btnCarta").addEventListener("pointerdown",entregarCarta)
 
 function entregarCarta(){
 
@@ -314,19 +296,19 @@ setTimeout(()=>{
 
 document.getElementById("sobre").style.display="block"
 
-},1200)
+},1000)
 
 setTimeout(()=>{
 
 document.getElementById("carta").style.display="block"
 
-},2000)
+},1800)
 
 }
 
-/* rosas al tocar */
+/* rosas */
 
-document.addEventListener("touchstart",(e)=>{
+document.addEventListener("pointerdown",(e)=>{
 
 let rose=document.createElement("div")
 
@@ -334,11 +316,8 @@ rose.className="rose"
 
 rose.innerHTML="🌹"
 
-rose.style.left=e.touches[0].clientX+"px"
-
-rose.style.top=e.touches[0].clientY+"px"
-
-rose.style.animationDuration="4s"
+rose.style.left=e.clientX+"px"
+rose.style.top=e.clientY+"px"
 
 document.body.appendChild(rose)
 
@@ -353,16 +332,13 @@ function bat(){
 let b=document.createElement("div")
 
 b.className="bat"
-
 b.innerHTML="🦇"
 
 b.style.top=Math.random()*200+"px"
 
-b.style.animationDuration=(6+Math.random()*4)+"s"
-
 document.body.appendChild(b)
 
-setTimeout(()=>{b.remove()},10000)
+setTimeout(()=>{b.remove()},8000)
 
 }
 
@@ -372,5 +348,3 @@ setInterval(bat,4000)
 
 </body>
 </html>
-
-
