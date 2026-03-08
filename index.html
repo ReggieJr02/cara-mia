@@ -16,9 +16,8 @@ box-sizing:border-box;
 }
 
 html,body{
-position:fixed;
-height:100%;
-width:100%;
+height:100dvh;
+width:100vw;
 overflow:hidden;
 background:#000;
 color:#fff;
@@ -27,22 +26,14 @@ display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
-
+position:fixed;
 touch-action:none;
-overscroll-behavior:none;
-
--webkit-user-select:none;
-user-select:none;
 }
 
-/* fondo oscuro */
+/* fondo */
 
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:radial-gradient(circle at center,#111,#000);
-z-index:-3;
+body{
+background:radial-gradient(circle at center,#111,#000 70%);
 }
 
 /* luna */
@@ -52,18 +43,18 @@ position:fixed;
 top:40px;
 right:40px;
 font-size:90px;
-opacity:.85;
+opacity:.9;
 }
 
-/* mansión */
+/* mansion */
 
 .mansion{
 position:fixed;
-bottom:0;
+bottom:-10px;
 left:50%;
 transform:translateX(-50%);
-font-size:120px;
-opacity:.25;
+font-size:140px;
+opacity:.2;
 }
 
 /* contenedor */
@@ -72,9 +63,10 @@ opacity:.25;
 width:90%;
 max-width:420px;
 padding:28px;
-border:2px solid white;
+border:1px solid rgba(255,255,255,.3);
 border-radius:14px;
-box-shadow:0 0 30px rgba(255,255,255,.15);
+backdrop-filter:blur(4px);
+box-shadow:0 0 25px rgba(255,255,255,.15);
 }
 
 /* titulo */
@@ -117,38 +109,44 @@ animation:blink 1s infinite;
 /* final */
 
 .final{
-margin-top:24px;
+margin-top:25px;
 font-size:24px;
 letter-spacing:2px;
 }
 
-/* rosas */
+/* ROSAS NEGRAS */
 
 .rose{
 position:absolute;
-font-size:22px;
-opacity:.5;
+font-size:24px;
+filter:grayscale(1) brightness(.3) drop-shadow(0 0 4px rgba(200,200,200,.4));
 pointer-events:none;
 animation:fall linear;
 }
 
 @keyframes fall{
-to{transform:translateY(120vh)}
+to{
+transform:translateY(120vh) rotate(180deg);
+}
 }
 
-/* murciélagos */
+/* murcielagos */
 
 .bat{
 position:absolute;
 font-size:20px;
 opacity:.8;
-pointer-events:none;
 animation:fly linear;
+pointer-events:none;
 }
 
 @keyframes fly{
-from{transform:translateX(-10vw)}
-to{transform:translateX(110vw)}
+from{
+transform:translateX(-10vw);
+}
+to{
+transform:translateX(110vw);
+}
 }
 
 </style>
@@ -226,7 +224,6 @@ fraseIndex++
 if(fraseIndex>=frases.length)fraseIndex=0
 
 document.getElementById("frase").textContent=""
-
 letraIndex=0
 
 setTimeout(escribir,400)
@@ -246,17 +243,17 @@ rose.innerHTML="🌹"
 
 rose.style.left=Math.random()*100+"vw"
 rose.style.top="-30px"
-rose.style.animationDuration=(5+Math.random()*5)+"s"
+rose.style.animationDuration=(6+Math.random()*5)+"s"
 
 document.body.appendChild(rose)
 
-setTimeout(()=>{rose.remove()},9000)
+setTimeout(()=>{rose.remove()},10000)
 
 }
 
-setInterval(lluviaRosa,900)
+setInterval(lluviaRosa,800)
 
-/* MURCIÉLAGOS */
+/* MURCIELAGOS */
 
 function murcielago(){
 
@@ -276,20 +273,9 @@ setTimeout(()=>{bat.remove()},10000)
 
 setInterval(murcielago,4000)
 
-/* BLOQUEO TOTAL DE SCROLL */
-
-function bloquear(e){
-e.preventDefault()
-}
-
-document.addEventListener("touchmove",bloquear,{passive:false})
-document.addEventListener("touchstart",bloquear,{passive:false})
-document.addEventListener("wheel",bloquear,{passive:false})
-
 </script>
 
 </body>
 </html>
-
 
 
