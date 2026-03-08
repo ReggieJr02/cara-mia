@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para mi Cara Mia</title>
+
+<style>
+
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Georgia,serif;
+text-align:center;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:15px;
+}
+
+/* fondo */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#111,#000);
+z-index:-2;
+}
+
+/* luna */
+
+.moon{
+position:fixed;
+top:40px;
+right:40px;
+font-size:50px;
+opacity:.8;
+}
+
+/* contenedor */
+
+.container{
+width:100%;
+max-width:420px;
+padding:25px;
+border:2px solid white;
+border-radius:10px;
+box-shadow:0 0 25px rgba(255,255,255,.15);
+}
+
+/* título */
+
+h1{
+font-size:28px;
+margin-bottom:5px;
+}
+
+.subtitle{
+opacity:.7;
+margin-bottom:25px;
+font-size:14px;
+}
+
+/* frases */
+
+#frase{
+font-size:18px;
+min-height:80px;
+line-height:1.4;
+}
+
+/* cursor */
+
+.cursor{
+display:inline-block;
+width:2px;
+background:white;
+margin-left:3px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1}
+25%,75%{opacity:0}
+}
+
+/* botón */
+
+button{
+margin-top:20px;
+padding:10px 22px;
+border:2px solid white;
+background:black;
+color:white;
+cursor:pointer;
+font-size:15px;
+transition:.3s;
+}
+
+button:hover{
+background:white;
+color:black;
+}
+
+/* carta */
+
+.carta{
+display:none;
+margin-top:20px;
+font-size:16px;
+line-height:1.5;
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* final */
+
+.final{
+margin-top:20px;
+font-size:22px;
+}
+
+/* rosas */
+
+.rose{
+position:absolute;
+font-size:22px;
+animation:fall linear infinite;
+opacity:.35;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh)}
+}
+
+/* murciélagos */
+
+.bat{
+position:absolute;
+font-size:18px;
+animation:fly linear infinite;
+}
+
+@keyframes fly{
+from{transform:translateX(-10vw)}
+to{transform:translateX(110vw)}
+}
+
+/* mano */
+
+.hand{
+position:fixed;
+bottom:-100px;
+left:20px;
+font-size:55px;
+transition:1.5s;
+}
+
+.hand.walk{
+bottom:10px;
+left:calc(50% - 30px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="moon">🌙</div>
+
+<div class="container">
+
+<h1>Feliz Día de la Mujer</h1>
+<div class="subtitle">Para mi eternamente fascinante</div>
+
+<div id="frase"></div><span class="cursor"></span>
+
+<button onclick="entregarCarta()">Aceptar la carta</button>
+
+<div class="carta" id="carta">
+
+Mi querida...
+
+<br><br>
+
+Puede que el mundo sea extraño,  
+oscuro e impredecible...
+
+<br><br>
+
+pero cada día contigo  
+lo convierte en un lugar fascinante.
+
+<br><br>
+
+Tu elegancia, tu fuerza y tu misterio  
+hacen que mi vida sea infinitamente mejor.
+
+<br><br>
+
+Si la eternidad existe...
+
+<br><br>
+
+quiero vivirla a tu lado.
+
+<div class="final">
+Cara Mia 🖤
+</div>
+
+</div>
+
+</div>
+
+<div class="hand" id="hand">🖐</div>
+
+<script>
+
+/* FRASES GOMEZ */
+
+const frases=[
+
+'"Cara Mia..."',
+
+'"Querida, cada momento contigo es un paraíso oscuro y hermoso."',
+
+'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."',
+
+'"Tu belleza es como la noche... misteriosa y eterna."',
+
+'"Mi querida Morticia, mi amor por ti es eterno."'
+
+]
+
+let fraseIndex=0
+let letraIndex=0
+
+function escribir(){
+
+let frase=frases[fraseIndex]
+
+if(letraIndex < frase.length){
+
+document.getElementById("frase").textContent += frase.charAt(letraIndex)
+
+letraIndex++
+
+setTimeout(escribir,35)
+
+}else{
+
+setTimeout(cambiarFrase,3000)
+
+}
+
+}
+
+function cambiarFrase(){
+
+fraseIndex++
+
+if(fraseIndex>=frases.length)fraseIndex=0
+
+document.getElementById("frase").textContent=""
+
+letraIndex=0
+
+setTimeout(escribir,400)
+
+}
+
+escribir()
+
+/* rosas al tocar pantalla */
+
+document.addEventListener("touchstart",(e)=>{
+
+let rose=document.createElement("div")
+
+rose.className="rose"
+rose.innerHTML="🌹"
+
+rose.style.left=e.touches[0].clientX+"px"
+rose.style.top=e.touches[0].clientY+"px"
+
+document.body.appendChild(rose)
+
+setTimeout(()=>{
+
+rose.remove()
+
+},4000)
+
+})
+
+/* murciélagos */
+
+function bat(){
+
+let b=document.createElement("div")
+
+b.className="bat"
+b.innerHTML="🦇"
+
+b.style.top=Math.random()*200+"px"
+b.style.animationDuration=(6+Math.random()*4)+"s"
+
+document.body.appendChild(b)
+
+setTimeout(()=>{b.remove()},10000)
+
+}
+
+setInterval(bat,4000)
+
+/* carta */
+
+function entregarCarta(){
+
+let hand=document.getElementById("hand")
+
+hand.classList.add("walk")
+
+setTimeout(()=>{
+
+document.getElementById("carta").style.display="block"
+
+},1500)
+
+}
+
+</script>
+
+</body>
+</html>
