@@ -31,29 +31,39 @@ text-align:center;
 touch-action:none;
 overscroll-behavior:none;
 
-user-select:none;
 -webkit-user-select:none;
--webkit-touch-callout:none;
+user-select:none;
 }
 
-/* fondo */
+/* fondo oscuro */
 
 body::before{
 content:"";
 position:fixed;
 inset:0;
-background:radial-gradient(circle,#111,#000);
-z-index:-2;
+background:radial-gradient(circle at center,#111,#000);
+z-index:-3;
 }
 
 /* luna */
 
 .moon{
 position:fixed;
-top:30px;
-right:30px;
-font-size:45px;
+top:40px;
+right:40px;
+font-size:90px;
 opacity:.85;
+}
+
+/* mansión */
+
+.mansion{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+font-size:120px;
+opacity:.25;
 }
 
 /* contenedor */
@@ -64,21 +74,20 @@ max-width:420px;
 padding:28px;
 border:2px solid white;
 border-radius:14px;
-box-shadow:0 0 25px rgba(255,255,255,.15);
-backdrop-filter:blur(3px);
+box-shadow:0 0 30px rgba(255,255,255,.15);
 }
 
 /* titulo */
 
 h1{
 font-size:26px;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .subtitle{
 font-size:14px;
 opacity:.7;
-margin-bottom:18px;
+margin-bottom:20px;
 }
 
 /* frase */
@@ -118,7 +127,7 @@ letter-spacing:2px;
 .rose{
 position:absolute;
 font-size:22px;
-opacity:.4;
+opacity:.5;
 pointer-events:none;
 animation:fall linear;
 }
@@ -131,8 +140,8 @@ to{transform:translateY(120vh)}
 
 .bat{
 position:absolute;
-font-size:18px;
-opacity:.7;
+font-size:20px;
+opacity:.8;
 pointer-events:none;
 animation:fly linear;
 }
@@ -148,13 +157,14 @@ to{transform:translateX(110vw)}
 <body>
 
 <div class="moon">🌙</div>
+<div class="mansion">🏰</div>
 
 <div class="container">
 
 <h1>Feliz Día de la Mujer</h1>
 
 <div class="subtitle">
-Para mi eternamente fascinante
+Para la mujer que ilumina incluso la noche
 </div>
 
 <div id="frase"></div>
@@ -180,7 +190,7 @@ const frases=[
 
 '"Cada momento contigo es un paraíso oscuro y hermoso."',
 
-'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."',
+'"Morticia, eres la única mujer capaz de hechizar mi alma."',
 
 '"La vida sin ti sería como un día sin oscuridad."'
 
@@ -225,27 +235,7 @@ setTimeout(escribir,400)
 
 escribir()
 
-/* ROSAS AL TOCAR */
-
-document.addEventListener("pointerdown",(e)=>{
-
-let rose=document.createElement("div")
-
-rose.className="rose"
-rose.innerHTML="🌹"
-
-rose.style.left=(e.clientX-10)+"px"
-rose.style.top=(e.clientY-10)+"px"
-
-rose.style.animationDuration="4s"
-
-document.body.appendChild(rose)
-
-setTimeout(()=>{rose.remove()},4000)
-
-})
-
-/* LLUVIA CONSTANTE DE ROSAS */
+/* LLUVIA DE ROSAS */
 
 function lluviaRosa(){
 
@@ -255,7 +245,7 @@ rose.className="rose"
 rose.innerHTML="🌹"
 
 rose.style.left=Math.random()*100+"vw"
-rose.style.top="-20px"
+rose.style.top="-30px"
 rose.style.animationDuration=(5+Math.random()*5)+"s"
 
 document.body.appendChild(rose)
@@ -264,7 +254,7 @@ setTimeout(()=>{rose.remove()},9000)
 
 }
 
-setInterval(lluviaRosa,1200)
+setInterval(lluviaRosa,900)
 
 /* MURCIÉLAGOS */
 
@@ -286,21 +276,20 @@ setTimeout(()=>{bat.remove()},10000)
 
 setInterval(murcielago,4000)
 
-/* BLOQUEAR SCROLL */
+/* BLOQUEO TOTAL DE SCROLL */
 
-document.addEventListener("touchmove",(e)=>{
+function bloquear(e){
 e.preventDefault()
-},{passive:false})
+}
 
-document.addEventListener("wheel",(e)=>{
-e.preventDefault()
-},{passive:false})
+document.addEventListener("touchmove",bloquear,{passive:false})
+document.addEventListener("touchstart",bloquear,{passive:false})
+document.addEventListener("wheel",bloquear,{passive:false})
 
 </script>
 
 </body>
 </html>
-
 
 
 
