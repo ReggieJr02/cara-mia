@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <title>Para mi Cara Mia</title>
 
 <style>
 
-body{
+html,body{
 margin:0;
+padding:0;
+overflow:hidden;
+overflow-x:hidden;
 background:#000;
 color:#fff;
 font-family:Georgia,serif;
-text-align:center;
-overflow:hidden;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-padding:15px;
+text-align:center;
+
+user-select:none;
+-webkit-user-select:none;
+-webkit-touch-callout:none;
 }
 
 /* fondo */
@@ -38,40 +45,40 @@ z-index:-2;
 .moon{
 position:fixed;
 top:40px;
-right:40px;
-font-size:50px;
+right:30px;
+font-size:45px;
 opacity:.8;
 }
 
 /* contenedor */
 
 .container{
-width:100%;
+width:90%;
 max-width:420px;
 padding:25px;
 border:2px solid white;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 25px rgba(255,255,255,.15);
 }
 
 /* título */
 
 h1{
-font-size:28px;
+font-size:26px;
 margin-bottom:5px;
 }
 
 .subtitle{
-opacity:.7;
-margin-bottom:25px;
 font-size:14px;
+opacity:.7;
+margin-bottom:20px;
 }
 
 /* frases */
 
 #frase{
 font-size:18px;
-min-height:80px;
+min-height:70px;
 line-height:1.4;
 }
 
@@ -93,41 +100,48 @@ animation:blink 1s infinite;
 /* botón */
 
 button{
-margin-top:20px;
-padding:10px 22px;
+margin-top:18px;
+padding:10px 20px;
 border:2px solid white;
 background:black;
 color:white;
-cursor:pointer;
 font-size:15px;
+cursor:pointer;
 transition:.3s;
 }
 
-button:hover{
+button:active{
 background:white;
 color:black;
+}
+
+/* sobre */
+
+.envelope{
+margin-top:20px;
+font-size:50px;
+display:none;
+animation:fade 1s;
+}
+
+@keyframes fade{
+from{opacity:0}
+to{opacity:1}
 }
 
 /* carta */
 
 .carta{
 display:none;
-margin-top:20px;
+margin-top:15px;
 font-size:16px;
 line-height:1.5;
 animation:fade 2s;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
-}
-
-/* final */
-
 .final{
-margin-top:20px;
 font-size:22px;
+margin-top:15px;
 }
 
 /* rosas */
@@ -135,8 +149,8 @@ font-size:22px;
 .rose{
 position:absolute;
 font-size:22px;
-animation:fall linear infinite;
 opacity:.35;
+animation:fall linear;
 }
 
 @keyframes fall{
@@ -148,7 +162,7 @@ to{transform:translateY(110vh)}
 .bat{
 position:absolute;
 font-size:18px;
-animation:fly linear infinite;
+animation:fly linear;
 }
 
 @keyframes fly{
@@ -160,7 +174,7 @@ to{transform:translateX(110vw)}
 
 .hand{
 position:fixed;
-bottom:-100px;
+bottom:-90px;
 left:20px;
 font-size:55px;
 transition:1.5s;
@@ -185,7 +199,9 @@ left:calc(50% - 30px);
 
 <div id="frase"></div><span class="cursor"></span>
 
-<button onclick="entregarCarta()">Aceptar la carta</button>
+<button id="btnCarta">Aceptar la carta</button>
+
+<div class="envelope" id="sobre">💌</div>
 
 <div class="carta" id="carta">
 
@@ -193,13 +209,13 @@ Mi querida...
 
 <br><br>
 
-Puede que el mundo sea extraño,  
-oscuro e impredecible...
+El mundo puede ser extraño  
+y a veces oscuro...
 
 <br><br>
 
-pero cada día contigo  
-lo convierte en un lugar fascinante.
+pero cada momento contigo  
+lo convierte en algo fascinante.
 
 <br><br>
 
@@ -281,25 +297,52 @@ setTimeout(escribir,400)
 
 escribir()
 
-/* rosas al tocar pantalla */
+/* botón móvil */
+
+const btn=document.getElementById("btnCarta")
+
+btn.addEventListener("click",entregarCarta)
+btn.addEventListener("touchstart",entregarCarta)
+
+/* entregar carta */
+
+function entregarCarta(){
+
+document.getElementById("hand").classList.add("walk")
+
+setTimeout(()=>{
+
+document.getElementById("sobre").style.display="block"
+
+},1200)
+
+setTimeout(()=>{
+
+document.getElementById("carta").style.display="block"
+
+},2000)
+
+}
+
+/* rosas al tocar */
 
 document.addEventListener("touchstart",(e)=>{
 
 let rose=document.createElement("div")
 
 rose.className="rose"
+
 rose.innerHTML="🌹"
 
 rose.style.left=e.touches[0].clientX+"px"
+
 rose.style.top=e.touches[0].clientY+"px"
+
+rose.style.animationDuration="4s"
 
 document.body.appendChild(rose)
 
-setTimeout(()=>{
-
-rose.remove()
-
-},4000)
+setTimeout(()=>{rose.remove()},4000)
 
 })
 
@@ -310,9 +353,11 @@ function bat(){
 let b=document.createElement("div")
 
 b.className="bat"
+
 b.innerHTML="🦇"
 
 b.style.top=Math.random()*200+"px"
+
 b.style.animationDuration=(6+Math.random()*4)+"s"
 
 document.body.appendChild(b)
@@ -323,23 +368,9 @@ setTimeout(()=>{b.remove()},10000)
 
 setInterval(bat,4000)
 
-/* carta */
-
-function entregarCarta(){
-
-let hand=document.getElementById("hand")
-
-hand.classList.add("walk")
-
-setTimeout(()=>{
-
-document.getElementById("carta").style.display="block"
-
-},1500)
-
-}
-
 </script>
 
 </body>
 </html>
+
+
