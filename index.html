@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <title>Cara Mia</title>
 
@@ -16,6 +16,7 @@ box-sizing:border-box;
 }
 
 html,body{
+position:fixed;
 height:100%;
 width:100%;
 overflow:hidden;
@@ -42,7 +43,7 @@ content:"";
 position:fixed;
 inset:0;
 background:radial-gradient(circle,#111,#000);
-z-index:-1;
+z-index:-2;
 }
 
 /* luna */
@@ -51,8 +52,8 @@ z-index:-1;
 position:fixed;
 top:30px;
 right:30px;
-font-size:40px;
-opacity:.8;
+font-size:45px;
+opacity:.85;
 }
 
 /* contenedor */
@@ -60,30 +61,31 @@ opacity:.8;
 .container{
 width:90%;
 max-width:420px;
-padding:30px;
+padding:28px;
 border:2px solid white;
-border-radius:12px;
+border-radius:14px;
 box-shadow:0 0 25px rgba(255,255,255,.15);
+backdrop-filter:blur(3px);
 }
 
 /* titulo */
 
 h1{
 font-size:26px;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .subtitle{
 font-size:14px;
 opacity:.7;
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
 /* frase */
 
 #frase{
 font-size:20px;
-min-height:80px;
+min-height:90px;
 line-height:1.4;
 }
 
@@ -92,6 +94,7 @@ line-height:1.4;
 .cursor{
 display:inline-block;
 width:2px;
+height:22px;
 background:white;
 margin-left:4px;
 animation:blink 1s infinite;
@@ -105,8 +108,9 @@ animation:blink 1s infinite;
 /* final */
 
 .final{
-margin-top:25px;
-font-size:22px;
+margin-top:24px;
+font-size:24px;
+letter-spacing:2px;
 }
 
 /* rosas */
@@ -114,8 +118,9 @@ font-size:22px;
 .rose{
 position:absolute;
 font-size:22px;
-opacity:.35;
-animation:fall 4s linear;
+opacity:.4;
+pointer-events:none;
+animation:fall linear;
 }
 
 @keyframes fall{
@@ -127,7 +132,9 @@ to{transform:translateY(120vh)}
 .bat{
 position:absolute;
 font-size:18px;
-animation:fly 8s linear;
+opacity:.7;
+pointer-events:none;
+animation:fly linear;
 }
 
 @keyframes fly{
@@ -161,7 +168,7 @@ Cara Mia 🖤
 
 <script>
 
-/* frases */
+/* FRASES */
 
 const frases=[
 
@@ -173,7 +180,9 @@ const frases=[
 
 '"Cada momento contigo es un paraíso oscuro y hermoso."',
 
-'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."'
+'"Morticia, eres la única mujer que podría hacer que mi corazón lata así."',
+
+'"La vida sin ti sería como un día sin oscuridad."'
 
 ]
 
@@ -186,7 +195,7 @@ let frase=frases[fraseIndex]
 
 if(letraIndex < frase.length){
 
-document.getElementById("frase").textContent += frase.charAt(letraIndex)
+document.getElementById("frase").textContent+=frase.charAt(letraIndex)
 
 letraIndex++
 
@@ -216,7 +225,7 @@ setTimeout(escribir,400)
 
 escribir()
 
-/* rosas */
+/* ROSAS AL TOCAR */
 
 document.addEventListener("pointerdown",(e)=>{
 
@@ -228,41 +237,70 @@ rose.innerHTML="🌹"
 rose.style.left=(e.clientX-10)+"px"
 rose.style.top=(e.clientY-10)+"px"
 
+rose.style.animationDuration="4s"
+
 document.body.appendChild(rose)
 
 setTimeout(()=>{rose.remove()},4000)
 
 })
 
-/* murciélagos */
+/* LLUVIA CONSTANTE DE ROSAS */
 
-function bat(){
+function lluviaRosa(){
 
-let b=document.createElement("div")
+let rose=document.createElement("div")
 
-b.className="bat"
-b.innerHTML="🦇"
+rose.className="rose"
+rose.innerHTML="🌹"
 
-b.style.top=Math.random()*200+"px"
+rose.style.left=Math.random()*100+"vw"
+rose.style.top="-20px"
+rose.style.animationDuration=(5+Math.random()*5)+"s"
 
-document.body.appendChild(b)
+document.body.appendChild(rose)
 
-setTimeout(()=>{b.remove()},8000)
+setTimeout(()=>{rose.remove()},9000)
 
 }
 
-setInterval(bat,4000)
+setInterval(lluviaRosa,1200)
 
-/* bloquear scroll táctil */
+/* MURCIÉLAGOS */
 
-document.addEventListener("touchmove",function(e){
-e.preventDefault();
+function murcielago(){
+
+let bat=document.createElement("div")
+
+bat.className="bat"
+bat.innerHTML="🦇"
+
+bat.style.top=Math.random()*200+"px"
+bat.style.animationDuration=(6+Math.random()*4)+"s"
+
+document.body.appendChild(bat)
+
+setTimeout(()=>{bat.remove()},10000)
+
+}
+
+setInterval(murcielago,4000)
+
+/* BLOQUEAR SCROLL */
+
+document.addEventListener("touchmove",(e)=>{
+e.preventDefault()
+},{passive:false})
+
+document.addEventListener("wheel",(e)=>{
+e.preventDefault()
 },{passive:false})
 
 </script>
 
 </body>
 </html>
+
 
 
 
